@@ -3,9 +3,9 @@ import os
 import random
 pygame.font.init()
 
-SCORE_FONT = pygame.font.SysFont('comicsans', 40)
-GAME_END  = pygame.font.SysFont('comicsans', 100)
-HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
+SCORE_FONT = pygame.font.SysFont('georgia', 40)
+GAME_END  = pygame.font.SysFont('georgia', 100)
+HEALTH_FONT = pygame.font.SysFont('georgia', 40)
 MAN_WIDTH = 100
 MAN_HEIGHT = 100
 WIDTH, HEIGHT = 1000, 500
