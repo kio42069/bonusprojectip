@@ -3,13 +3,13 @@ import os
 import random
 pygame.font.init()
 
-
+SCORE_FONT = pygame.font.SysFont('comicsans', 40)
+GAME_END  = pygame.font.SysFont('comicsans', 100)
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
 MAN_WIDTH = 100
 MAN_HEIGHT = 100
 WIDTH, HEIGHT = 1000, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-GAME_END  = pygame.font.SysFont('comicsans', 100)
 pygame.display.set_caption("HydroHopper")
 
 FREQUENCY = 0.4
@@ -19,11 +19,13 @@ VEL = 5
 FPS = 60
 MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','man.png')),(MAN_WIDTH, MAN_HEIGHT))
 
-def draw_win(bg, man, obstacles, man_health):
+def draw_win(bg, man, obstacles, man_health, score):
     WIN.blit(bg, (0,0))
     WIN.blit(MAN, (man.x, man.y))
     health_text = HEALTH_FONT.render(f"Lives remaining: {man_health}", 1, (0,0,0))
     WIN.blit(health_text, (10,10))
+    score_text = SCORE_FONT.render(f"Score: {int(score)}",1 ,(0,0,0))
+    WIN.blit(score_text, (WIDTH-score_text.get_width()-10,10))
     for obstacle in obstacles:
         pygame.draw.rect(WIN, (0,0,0), obstacle)
     pygame.display.update()
@@ -64,9 +66,10 @@ def main():
         bg = pygame.transform.scale((pygame.image.load(os.path.join('Assets_Game',f'bgs{int(img_num)}.png'))),(WIDTH,HEIGHT))
         img_num += 0.1
         obstacle_count += FREQUENCY/10
+        score += 0.01
         if img_num > 3:
             img_num = 1
-        draw_win(bg, man, obstacles, man_health)
+        draw_win(bg, man, obstacles, man_health, score)
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,7 +85,7 @@ def main():
             old_obstacle_count = obstacle_count
         game_end_text = ""    
         if man_health <= 0:
-            game_end_text = f"Score: {score}"
+            game_end_text = f"Score: {int(score)}"
         if game_end_text != "":
             draw_end(game_end_text)
             break
