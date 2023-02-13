@@ -19,13 +19,15 @@ VEL = 5
 FPS = 60
 MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','man.png')),(MAN_WIDTH, MAN_HEIGHT))
 
-def draw_win(bg, man, obstacles, man_health, score):
+def draw_win(bg, man, obstacles, man_health, score, highscore):
     WIN.blit(bg, (0,0))
     WIN.blit(MAN, (man.x, man.y))
     health_text = HEALTH_FONT.render(f"Lives remaining: {man_health}", 1, (0,0,0))
     WIN.blit(health_text, (10,10))
     score_text = SCORE_FONT.render(f"Score: {int(score)}",1 ,(0,0,0))
     WIN.blit(score_text, (WIDTH-score_text.get_width()-10,10))
+    highscore_text = SCORE_FONT.render(f"Highscore: {int(highscore)}",1 ,(0,0,0))
+    WIN.blit(highscore_text, (WIDTH-highscore_text.get_width()-10,10+score_text.get_height()))
     for obstacle in obstacles:
         pygame.draw.rect(WIN, (0,0,0), obstacle)
     pygame.display.update()
@@ -62,14 +64,18 @@ def main():
     old_obstacle_count = 0
     man_health = 3
     man = pygame.Rect(100, 300, MAN_WIDTH, MAN_HEIGHT)
+    with open("highscore.txt", "r") as file:
+        recs = file.readlines()
+    recs = [int(x) for x in recs]
+    highscore = max(recs)
     while run:
         bg = pygame.transform.scale((pygame.image.load(os.path.join('Assets_Game',f'bgs{int(img_num)}.png'))),(WIDTH,HEIGHT))
         img_num += 0.1
         obstacle_count += FREQUENCY/10
-        score += 0.01
+        score += 0.05
         if img_num > 3:
             img_num = 1
-        draw_win(bg, man, obstacles, man_health, score)
+        draw_win(bg, man, obstacles, man_health, score, highscore)
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -92,7 +98,8 @@ def main():
         handle_obstacles(obstacles, man)
         keys_pressed = pygame.key.get_pressed()
         movement(keys_pressed, man)
-        
+    with open("highscore.txt","a") as file:
+        file.write(str(int(score))+"\n")
     main()
     
 if __name__ == "__main__":
