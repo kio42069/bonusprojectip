@@ -15,19 +15,29 @@ button=Button(root,text='whip').pack()
 
 root.mainloop()'''
 
-''from tkinter import *   
+from tkinter import *   
  
-# create a tkinter window
+canvas_bg = "#b2d4fa"
+
 root = Tk()             
 root.title('gawkgawk3000')
-# Open window having dimension 100x100
+
 root.geometry('600x600')
  
-# Create a Button
-btn = Button(root, text = 'Click me !', bd = '5',
-                          command = root.destroy)
- 
-# Set the position of button on the top of window.  
-btn.pack(side = 'top')   
- 
+label=Label(root,text='swapnil fucks surat fast and hard').place(x=200,y=20) 
+
+def submitFunction() :
+    print('Submit button is clicked.')
+
+btn = Button(root, text = 'rope', bd = '5',height=5,width=30, command = submitFunction())
+btn.place(x=200,y=40)
+btn = Button(root, text = 'whip', bd = '5',height=5,width=30)
+btn.place(x=200,y=140)  
+btn = Button(root, text = 'handcuffs', bd = '5',height=5,width=30)
+btn.place(x=200,y=240)                                                                        
+btn = Button(root, text = 'dildo', bd = '5',height=5,width=30)
+btn.place(x=200,y=340)
+btn = Button(root, text = 'limit reached', bd = '5',height=5,width=30)
+btn.place(x=200,y=440)
+
 root.mainloop()
