@@ -6,8 +6,8 @@ pygame.font.init()
 SCORE_FONT = pygame.font.SysFont('georgia', 40)
 GAME_END  = pygame.font.SysFont('georgia', 100)
 HEALTH_FONT = pygame.font.SysFont('georgia', 40)
-MAN_WIDTH, MAN_HEIGHT = 100, 100
-ROCK_WIDTH, ROCK_HEIGHT = 50,50
+MAN_WIDTH = 100
+MAN_HEIGHT = 100
 WIDTH, HEIGHT = 1000, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("HydroHopper")
@@ -17,7 +17,6 @@ MAN_HIT = pygame.USEREVENT
 OBSTACLE_VEL = 10
 VEL = 5
 FPS = 60
-ROCK = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','rock.png')),(ROCK_WIDTH, ROCK_HEIGHT))
 MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','man.png')),(MAN_WIDTH, MAN_HEIGHT))
 
 def draw_win(bg, man, obstacles, man_health, score, highscore):
@@ -29,10 +28,8 @@ def draw_win(bg, man, obstacles, man_health, score, highscore):
     WIN.blit(score_text, (WIDTH-score_text.get_width()-10,10))
     highscore_text = SCORE_FONT.render(f"Highscore: {int(highscore)}",1 ,(0,0,0))
     WIN.blit(highscore_text, (WIDTH-highscore_text.get_width()-10,10+score_text.get_height()))
-    WIN.blit(ROCK, (100,100))
     for obstacle in obstacles:
-        WIN.blit(ROCK, (obstacle.x, obstacle.y))
-        
+        pygame.draw.rect(WIN, (0,0,0), obstacle)
     pygame.display.update()
     
 
@@ -40,7 +37,7 @@ def draw_end(text):
     draw_text = GAME_END.render(text,1,(0,0,0))
     WIN.blit(draw_text,(WIDTH//2-draw_text.get_width()//2,HEIGHT//2-draw_text.get_height()//2))
     pygame.display.update()
-    pygame.time.delay(1000)
+    pygame.time.delay(3000)
     
 def movement(keys_pressed, man):
     if keys_pressed[pygame.K_UP] and man.y > HEIGHT//2-30:
@@ -89,7 +86,7 @@ def main():
                 man_health -= 1
         
         if int(obstacle_count) > old_obstacle_count:
-            obstacle = pygame.Rect(WIDTH, random.randint(HEIGHT//2-30,HEIGHT), ROCK_WIDTH, ROCK_HEIGHT)
+            obstacle = pygame.Rect(WIDTH, random.randint(HEIGHT//2-30,HEIGHT), 10, 5)
             obstacles.append(obstacle)
             old_obstacle_count = obstacle_count
         game_end_text = ""    
