@@ -1,157 +1,108 @@
 import pygame
 import os
+import random
 pygame.font.init()
-pygame.mixer.init()
 
+SCORE_FONT = pygame.font.SysFont('georgia', 40)
+GAME_END  = pygame.font.SysFont('georgia', 100)
+HEALTH_FONT = pygame.font.SysFont('georgia', 40)
+MAN_WIDTH, MAN_HEIGHT = 100, 100
+ROCK_WIDTH, ROCK_HEIGHT = 50,50
+WIDTH, HEIGHT = 1000, 500
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("HydroHopper")
 
-WIDTH, HEIGHT = 900, 500
-WIN = pygame.display.set_mode((WIDTH,HEIGHT))
-pygame.display.set_caption("Game")
-
-WHITE = (255,255,255)
-BLACK = (0,0,0)
-RED = (255,0,0)
-YELLOW = (255,255,0)
-BORDER = pygame.Rect(WIDTH//2-5, 0, 10, 500)
-HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
-WINNER_FONT  = pygame.font.SysFont('comicsans', 100)
-
-BULLET_HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets','Grenade+1.mp3'))
-BULLET_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets','Gun+Silencer.mp3'))
-
-FPS = 60
+FREQUENCY = 0.4
+MAN_HIT = pygame.USEREVENT
+OBSTACLE_VEL = 10
 VEL = 5
-BULLET_VEL = 7
-MAX_BULLETS = 3
+FPS = 60
+ROCK = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','rock.png')),(ROCK_WIDTH, ROCK_HEIGHT))
+MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Game','man.png')),(MAN_WIDTH, MAN_HEIGHT))
 
-YELLOW_HIT = pygame.USEREVENT + 1
-RED_HIT = pygame.USEREVENT + 2
-
-SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55, 40
-YELLOW_SPACESHIP_IMAGE = pygame.image.load(os.path.join('Assets', 'spaceship_yellow.png'))
-RED_SPACESHIP_IMAGE = pygame.image.load(os.path.join('Assets', 'spaceship_red.png'))
-
-YELLOW_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP_IMAGE, (SPACESHIP_WIDTH, SPACESHIP_HEIGHT)), 90)
-RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMAGE, (SPACESHIP_WIDTH, SPACESHIP_HEIGHT)), 270)
-SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'space.png')), (WIDTH,HEIGHT))
-def yellow_handle_movement(keys_pressed, yellow):
-    if keys_pressed[pygame.K_a] and yellow.x - VEL > 0: #LEFT
-        yellow.x -= VEL
-    if keys_pressed[pygame.K_d] and yellow.x + VEL + yellow.width <BORDER.x: #RIGHT
-        yellow.x += VEL
-    if keys_pressed[pygame.K_w] and yellow.y - VEL > 0: #UP
-        yellow.y -= VEL
-    if keys_pressed[pygame.K_s] and yellow.y + VEL + yellow.height < HEIGHT - 15: #DOWN
-        yellow.y += VEL
+def draw_win(bg, man, obstacles, man_health, score, highscore):
+    WIN.blit(bg, (0,0))
+    WIN.blit(MAN, (man.x, man.y))
+    health_text = HEALTH_FONT.render(f"Lives remaining: {man_health}", 1, (0,0,0))
+    WIN.blit(health_text, (10,10))
+    score_text = SCORE_FONT.render(f"Score: {int(score)}",1 ,(0,0,0))
+    WIN.blit(score_text, (WIDTH-score_text.get_width()-10,10))
+    highscore_text = SCORE_FONT.render(f"Highscore: {int(highscore)}",1 ,(0,0,0))
+    WIN.blit(highscore_text, (WIDTH-highscore_text.get_width()-10,10+score_text.get_height()))
+    WIN.blit(ROCK, (100,100))
+    for obstacle in obstacles:
+        WIN.blit(ROCK, (obstacle.x, obstacle.y))
         
-def red_handle_movement(keys_pressed, red):
-    if keys_pressed[pygame.K_LEFT] and red.x - VEL - 15> BORDER.x: #LEFT
-        red.x -= VEL
-    if keys_pressed[pygame.K_RIGHT] and red.x + VEL + red.width < WIDTH: #RIGHT
-        red.x += VEL
-    if keys_pressed[pygame.K_UP] and red.y - VEL > 0: #UP
-        red.y -= VEL
-    if keys_pressed[pygame.K_DOWN] and red.y + VEL + red.height < HEIGHT - 15: #DOWN
-        red.y += VEL  
-        
-        
-def handle_bullets(yellow_bullets, red_bullets, yellow, red):
-    for bullet in yellow_bullets:
-        bullet.x += BULLET_VEL
-        if red.colliderect(bullet):
-            yellow_bullets.remove(bullet)
-            pygame.event.post(pygame.event.Event(RED_HIT))
-        elif bullet.x > WIDTH:
-            yellow_bullets.remove(bullet)
-    for bullet in red_bullets:
-        bullet.x -= BULLET_VEL
-        if yellow.colliderect(bullet):
-            red_bullets.remove(bullet)
-            pygame.event.post(pygame.event.Event(YELLOW_HIT))
-        elif bullet.x < 0:
-            red_bullets.remove(bullet)
-            
- 
-def draw_winner(text):
-     draw_text = WINNER_FONT.render(text,1,WHITE)
-     WIN.blit(draw_text,(WIDTH//2 - draw_text.get_width() // 2, HEIGHT//2 - draw_text.get_height()//2))
-     pygame.display.update()
-     pygame.time.delay(1000)
- 
- 
-def draw_win(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health):
-    pygame.draw.rect(WIN, BLACK, BORDER)
-    WIN.blit(SPACE,(0,0))
-    red_health_text = HEALTH_FONT.render(f"Health: {red_health}", 1,WHITE)
-    yellow_health_text = HEALTH_FONT.render(f"Health: {yellow_health}",1 ,WHITE)
-    WIN.blit(red_health_text, (WIDTH-red_health_text.get_width()-10, 10))
-    WIN.blit(yellow_health_text, (10, 10))
-    WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y))
-    WIN.blit(RED_SPACESHIP, (red.x, red.y))
-    
-    for bullet in red_bullets:
-        pygame.draw.rect(WIN, RED, bullet)
-    for bullet in yellow_bullets:
-        pygame.draw.rect(WIN, YELLOW, bullet)
-    
     pygame.display.update()
+    
 
+def draw_end(text):
+    draw_text = GAME_END.render(text,1,(0,0,0))
+    WIN.blit(draw_text,(WIDTH//2-draw_text.get_width()//2,HEIGHT//2-draw_text.get_height()//2))
+    pygame.display.update()
+    pygame.time.delay(1000)
+    
+def movement(keys_pressed, man):
+    if keys_pressed[pygame.K_UP] and man.y > HEIGHT//2-30:
+        man.y -= VEL
+    if keys_pressed[pygame.K_DOWN] and man.y +VEL + man.height < HEIGHT - 15:
+        man.y += VEL
+
+def handle_obstacles(obstacles, man):
+    for obstacle in obstacles:
+        obstacle.x -= OBSTACLE_VEL
+        if man.colliderect(obstacle):
+            obstacles.remove(obstacle)
+            pygame.event.post(pygame.event.Event(MAN_HIT))
+        elif obstacle.x < 0:
+            obstacles.remove(obstacle)
+        
 def main():
-    
-    red_bullets = []
-    yellow_bullets = []
-    
-    red_health = 3
-    yellow_health = 3
-    
-    red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
-    yellow = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)    
-    
+    score = 0
+    obstacles = []
     clock = pygame.time.Clock()
     run = True
+    img_num = 1
+    obstacle_count = 0
+    old_obstacle_count = 0
+    man_health = 3
+    man = pygame.Rect(100, 300, MAN_WIDTH, MAN_HEIGHT)
+    with open("highscore.txt", "r") as file:
+        recs = file.readlines()
+    recs = [int(x) for x in recs]
+    highscore = max(recs)
     while run:
+        bg = pygame.transform.scale((pygame.image.load(os.path.join('Assets_Game',f'bgs{int(img_num)}.png'))),(WIDTH,HEIGHT))
+        img_num += 0.1
+        obstacle_count += FREQUENCY/10
+        score += 0.05
+        if img_num > 3:
+            img_num = 1
+        draw_win(bg, man, obstacles, man_health, score, highscore)
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-                
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LCTRL and len(yellow_bullets) < MAX_BULLETS:
-                    bullet = pygame.Rect(yellow.x+yellow.width, yellow.y+yellow.height//2 -2, 10, 4)
-                    yellow_bullets.append(bullet)
-                    BULLET_FIRE_SOUND.play()
-                    
-                if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
-                    bullet = pygame.Rect(red.x, red.y+red.height//2 -2, 10, 5)
-                    red_bullets.append(bullet)
-                    BULLET_FIRE_SOUND.play()
-
-
-            if event.type == RED_HIT:
-                red_health -= 1
-                BULLET_HIT_SOUND.play()
             
-            if event.type == YELLOW_HIT:
-                yellow_health -= 1
-                BULLET_HIT_SOUND.play()
-
-        winner_text = ""     
-        if red_health <= 0:
-            winner_text = "Yellow wins!"
-        if yellow_health <= 0:
-            winner_text = "Red wins"
-        if winner_text != "":
-            draw_winner(winner_text)
+            if event.type == MAN_HIT:
+                man_health -= 1
+        
+        if int(obstacle_count) > old_obstacle_count:
+            obstacle = pygame.Rect(WIDTH, random.randint(HEIGHT//2-30,HEIGHT), ROCK_WIDTH, ROCK_HEIGHT)
+            obstacles.append(obstacle)
+            old_obstacle_count = obstacle_count
+        game_end_text = ""    
+        if man_health <= 0:
+            game_end_text = f"Score: {int(score)}"
+        if game_end_text != "":
+            draw_end(game_end_text)
             break
+        handle_obstacles(obstacles, man)
         keys_pressed = pygame.key.get_pressed()
-        yellow_handle_movement(keys_pressed, yellow)  
-        red_handle_movement(keys_pressed, red)
-        
-        handle_bullets(yellow_bullets, red_bullets, yellow, red)
-        
-        draw_win(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health)   
-
+        movement(keys_pressed, man)
+    with open("highscore.txt","a") as file:
+        file.write(str(int(score))+"\n")
     main()
     
 if __name__ == "__main__":
