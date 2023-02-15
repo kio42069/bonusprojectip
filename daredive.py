@@ -146,4 +146,3 @@ def daredive():
     while True:
         checker()
         check_test()
-daredive()
