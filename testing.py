@@ -1,13 +1,21 @@
-import tkinter
- 
-window_main = tkinter.Tk(className='Tkinter - TutorialKart', )
-window_main.geometry("400x200")
- 
-def submitFunction() :
-    print('Submit button is clicked.')
- 
-button_submit = tkinter.Button(window_main, text ="Submit", command=submitFunction)
-button_submit.config(width=20, height=2)
- 
-button_submit.pack()
-window_main.mainloop()
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+
+#Create an instance of Tkinter Frame
+win = Tk()
+
+#Set the geometry of Tkinter Frame
+win.geometry("700x350")
+
+#Define a function for opening the Dialog box
+def open_prompt():
+   messagebox.showinfo("Message", "Click Okay to Proceed")
+
+#Create a Label widget
+Label(win, text= "Click to Open the MessageBox").pack(pady=15)
+
+#Create a Button for opening a dialog Box
+ttk.Button(win, text= "Open", command= open_prompt).pack()
+
+win.mainloop()
