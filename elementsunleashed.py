@@ -9,21 +9,20 @@ CARD_WIDTH, CARD_HEIGHT = 150,150
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Elements Unleashed')
 
+class 
+
 def make_deck():
     deck = []
+    
     for _ in range(5):
-        card = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Elementsunleashed',random.choice(['snow.png','fire.png','water.png']))),(CARD_WIDTH,CARD_HEIGHT))
-        deck.append(card)
+        card_name = random.choice(['snow','fire','water'])
+        card = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Elementsunleashed',card_name+".png")),(CARD_WIDTH,CARD_HEIGHT))
+        deck[card_name]
     return deck
-
-def add_card(deck):
-    empty = deck.index(0)
-    card = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Elementsunleashed',random.choice(['snow.png','fire.png','water.png']))),(CARD_WIDTH,CARD_HEIGHT))
-    deck[empty] = card
 
 def create_buttons():
     button_img = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
-    buttons = dict()
+    buttons = list()
     for i in range(5):
         buttons.append(button.Button(150+200*i,485, button_img,1))
     return buttons
@@ -51,6 +50,6 @@ while run:
             WIN.blit(card_chosen,(250,100))
             pygame.display.update()
             pygame.time.delay(500)
-            cpu_card = 
+            cpu_card = ""
     WIN.blit(card_chosen,(250,100))
     pygame.display.update()
