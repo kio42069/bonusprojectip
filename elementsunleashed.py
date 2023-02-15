@@ -23,10 +23,11 @@ def add_card(deck):
 
 def create_buttons():
     button_img = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
-    buttons = []
+    buttons = dict()
     for i in range(5):
         buttons.append(button.Button(150+200*i,485, button_img,1))
     return buttons
+
 run = True
 card_deck = make_deck()
 card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
@@ -47,5 +48,9 @@ while run:
             card_chosen = card_deck[i]
             card_deck[i] = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
             card_chosen = pygame.transform.scale(card_chosen,(200,200))
+            WIN.blit(card_chosen,(250,100))
+            pygame.display.update()
+            pygame.time.delay(500)
+            cpu_card = 
     WIN.blit(card_chosen,(250,100))
     pygame.display.update()

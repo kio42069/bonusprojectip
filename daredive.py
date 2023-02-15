@@ -114,7 +114,7 @@ def daredive():
             if int(now-start) % 2 == 0 and int(now-start) != 0:
                 OBSTACLE_VEL += 0.01
                 VEL += 0.01
-            bg = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Hydrohopper','ocean.jpg')),(WIDTH,HEIGHT))
+            bg = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Daredive','ocean.jpg')),(WIDTH,HEIGHT))
             obstacle_count += FREQUENCY/10
             score += 0.1
             draw_win(bg, man, obstacles, man_health, score, highscore)
