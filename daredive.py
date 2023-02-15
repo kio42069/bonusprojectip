@@ -10,8 +10,8 @@ def daredive():
     SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
     GAME_END  = pygame.font.SysFont('arcadeclassic', 100)
     HEALTH_FONT = pygame.font.SysFont('arcadeclassic', 40)
-    MAN_WIDTH, MAN_HEIGHT = 100, 100
-    ROCK_WIDTH, ROCK_HEIGHT = 100,40
+    MAN_WIDTH, MAN_HEIGHT = 150, 90
+    ROCK_WIDTH, ROCK_HEIGHT = 100,60
     WIDTH, HEIGHT = 1000,500
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("HydroHopper")
