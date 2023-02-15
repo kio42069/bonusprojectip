@@ -15,7 +15,7 @@ def daredive():
     WIDTH, HEIGHT = 1000,500
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("HydroHopper")
-    CRASH_SOUND = pygame.mixer.Sound(os.path.join('Assets_Hydrohopper', 'crash.wav'))
+    CRASH_SOUND = pygame.mixer.Sound(os.path.join('Assets_Daredive', 'crash.wav'))
     start_img = pygame.transform.scale(pygame.image.load("Start.png").convert_alpha(), (300,150))
     exit_img = pygame.transform.scale(pygame.image.load("Quit.png").convert_alpha(), (300,150))
             
@@ -25,7 +25,7 @@ def daredive():
     FREQUENCY = 0.4
     MAN_HIT = pygame.USEREVENT
     FPS = 60
-    MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Hydrohopper','man.png')),(MAN_WIDTH, MAN_HEIGHT))
+    MAN = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Daredive','man.png')),(MAN_WIDTH, MAN_HEIGHT))
 
     def draw_win(bg, man, obstacles, man_health, score, highscore):
         WIN.blit(bg, (0,0))
@@ -36,9 +36,9 @@ def daredive():
         WIN.blit(score_text, (WIDTH-score_text.get_width()-10,10))
         highscore_text = SCORE_FONT.render(f"Highscore: {int(highscore)}",1 ,(0,0,0))
         WIN.blit(highscore_text, (WIDTH-highscore_text.get_width()-10,10+score_text.get_height()))
-        ROCK = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Hydrohopper','shark.png')),(ROCK_WIDTH, ROCK_HEIGHT))
+        SHARK = pygame.transform.scale(pygame.image.load(os.path.join('Assets_Daredive','shark.png')),(ROCK_WIDTH, ROCK_HEIGHT))
         for obstacle in obstacles:
-            WIN.blit(ROCK, (obstacle.x, obstacle.y))
+            WIN.blit(SHARK, (obstacle.x, obstacle.y))
             
         pygame.display.update()
         
@@ -146,3 +146,4 @@ def daredive():
     while True:
         checker()
         check_test()
+daredive()
