@@ -13,6 +13,15 @@ pygame.display.set_caption('Elements Unleashed')
 SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
 WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
 
+def init():
+    USER_WINS = 0
+    CPU_WINS = 0
+    WIDTH, HEIGHT = 1290, 650
+    CARD_WIDTH, CARD_HEIGHT = 150,150
+    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption('Elements Unleashed')
+    SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
+    WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
 
 
 class Card:
@@ -58,7 +67,8 @@ def who_won(a,b):
 run = True
 card_deck = make_deck()
 card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
-def elementsunleashed():    
+def elementsunleashed(): 
+    init()   
     USER_WINS = 0
     CPU_WINS = 0
     WIDTH, HEIGHT = 1290, 650

@@ -26,7 +26,7 @@ btn1.place(x=59, y=75)
 
 #elements unleashed
 btnimg2 = PhotoImage(file='Pixellet TH (14).png')
-btn2 = Button(root, image=btnimg2, bd=0, command=lambda: discordbot.discordbot())
+btn2 = Button(root, image=btnimg2, bd=0, command=lambda: elementsunleashed.elementsunleashed())
 btn2.place(x=355, y=75)
 
 #galactic shooter
