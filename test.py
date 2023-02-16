@@ -1,2 +1,2 @@
-import galacticschooter
-galacticschooter.galacticshooter()
+import discordbot
+discordbot.discordbot()

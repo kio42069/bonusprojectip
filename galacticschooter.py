@@ -164,6 +164,4 @@ def galacticshooter():
             pygame.display.update()
 
         galacticshooter()
-
-
     galacticshooter()
