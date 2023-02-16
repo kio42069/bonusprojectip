@@ -9,7 +9,7 @@ intents.messages = True
 intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-token = "MTA2NDg0MjczMzk0NjE1MDkxMg.G9p2cr.o2nqoTr_u_AugOwSPD-Qcg5vQg_srprsFjqk24"
+token = "MTA2NDg0MjczMzk0NjE1MDkxMg.GFMgjE.BFXD5jV_5dDdPiGzkoS_HOJ1qdYi_jp8ejd3iQ"
 
 
 @bot.event
