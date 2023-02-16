@@ -1,2 +1,2 @@
-import elementsunleashed
-elementsunleashed.main()
+import galacticschooter
+galacticschooter.galacticshooter()

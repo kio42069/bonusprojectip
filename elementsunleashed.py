@@ -59,7 +59,7 @@ run = True
 card_deck = make_deck()
 card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
     
-def main():    
+def elementsunleashed():    
     USER_WINS = 0
     CPU_WINS = 0
     WIDTH, HEIGHT = 1290, 650
