@@ -25,11 +25,11 @@ btn1 = Button(root, image=btnimg1, bd=0, command=lambda: daredive.daredive())
 btn1.place(x=59, y=75)
 
 btnimg2 = PhotoImage(file='Pixellet TH (14).png')
-btn2 = Button(root, image=btnimg2, bd=0, command=lambda: galacticschooter.galacticshooter())
+btn2 = Button(root, image=btnimg2, bd=0, command=lambda: discordbot.discordbot())
 btn2.place(x=355, y=75)
 
 btnimg3 = PhotoImage(file='Pixellet TH (15).png')
-btn3 = Button(root, image=btnimg3, bd=0, command=lambda: discordbot.discordbot())
+btn3 = Button(root, image=btnimg3, bd=0, command=lambda: galacticschooter.galacticshooter())
 btn3.place(x=59, y=275)
 
 btnimg4 = PhotoImage(file='Pixellet TH (16).png')

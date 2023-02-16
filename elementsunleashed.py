@@ -58,7 +58,6 @@ def who_won(a,b):
 run = True
 card_deck = make_deck()
 card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
-    
 def elementsunleashed():    
     USER_WINS = 0
     CPU_WINS = 0
