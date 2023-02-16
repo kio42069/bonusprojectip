@@ -14,6 +14,12 @@ SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
 WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
 
 def init():
+    import pygame
+    import random
+    import button
+    import os
+    pygame.font.init()
+
     USER_WINS = 0
     CPU_WINS = 0
     WIDTH, HEIGHT = 1290, 650
@@ -22,6 +28,9 @@ def init():
     pygame.display.set_caption('Elements Unleashed')
     SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
     WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
+    run = True
+    card_deck = make_deck()
+    card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
 
 
 class Card:
