@@ -127,7 +127,7 @@ def galacticshooter():
                     pygame.quit()
 
                 if event.type==pygame.KEYDOWN and bullets_left>=0:
-                    if event.key==pygame.K_SPACE:
+                    if event.key==pygame.K_SPACE and len(current_bullets)==0:
                         bullet = pygame.Rect(shooter_rect.x + shooter_rect.width, shooter_rect.y + shooter_rect.height//2 - 2, 10, 5)
                         bullets_left -= 1
                         current_bullets.append(bullet)
@@ -138,7 +138,7 @@ def galacticshooter():
 
 
             winner_text = ""
-            if bullets_left<=0 and len(bricks)>0:
+            if bullets_left<=-1 and len(bricks)>0:
                 winner_text = "You Lose!"
 
             if bullets_left>=0 and len(bricks)<=0:
