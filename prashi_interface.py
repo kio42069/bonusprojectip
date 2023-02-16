@@ -1,27 +1,34 @@
-from daredive import kek
-from tkinter import *   
- 
-canvas_bg = "#b2d4fa"
+from HYDROHOPPER import kek
+from tkinter import *
+from PIL import ImageTk, Image
 
-root = Tk()             
+root = Tk()
 root.title('gawkgawk3000')
+root.resizable(False, False)
+image2 = Image.open('C:\\Users\\NAMIT\\Downloads\\Pixellet TH (4).png')
+image1 = ImageTk.PhotoImage(image2)
+w = image1.width()
+h = image1.height()
+print(w, h)
+root.geometry('%dx%d+0+0' % (w, h))
 
-root.geometry('600x600')
- 
-label=Label(root,text='swapnil fucks surat fast and hard').place(x=200,y=20) 
+label1 = Label(root, image=image1).place(x=0, y=0, relwidth=1, relheight=1)
 
-def submitFunction() :
-    print('Submit button is clicked.')
+btnimg1 = PhotoImage(file='C:\\Users\\NAMIT\\Downloads\\Pixellet TH (12).png')
+btn1 = Button(root, image=btnimg1, bd=0, command=lambda: kek())
+btn1.place(x=59, y=75)
 
-btn = Button(root, text = 'rope', bd = '5',height=5,width=30, command = lambda: kek())
-btn.place(x=200,y=40)
-btn = Button(root, text = 'whip', bd = '5',height=5,width=30)
-btn.place(x=200,y=140)  
-btn = Button(root, text = 'handcuffs', bd = '5',height=5,width=30)
-btn.place(x=200,y=240)                                                                        
-btn = Button(root, text = 'dildo', bd = '5',height=5,width=30)
-btn.place(x=200,y=340)
-btn = Button(root, text = 'limit reached', bd = '5',height=5,width=30)
-btn.place(x=200,y=440)
+btnimg2 = PhotoImage(file='C:\\Users\\NAMIT\\Downloads\\Pixellet TH (14).png')
+btn2 = Button(root, image=btnimg2, bd=0, command=lambda: kek())
+btn2.place(x=355, y=75)
+
+btnimg3 = PhotoImage(file='C:\\Users\\NAMIT\\Downloads\\Pixellet TH (15).png')
+btn3 = Button(root, image=btnimg3, bd=0, command=lambda: kek())
+btn3.place(x=59, y=275)
+
+btnimg4 = PhotoImage(file='C:\\Users\\NAMIT\\Downloads\\Pixellet TH (16).png')
+btn4 = Button(root, image=btnimg4, bd=0, command=lambda: kek())
+btn4.place(x=355, y=275)
+
 
 root.mainloop()
