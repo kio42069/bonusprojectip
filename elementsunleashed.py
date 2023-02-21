@@ -4,15 +4,6 @@ import button
 import os
 pygame.font.init()
 
-USER_WINS = 0
-CPU_WINS = 0
-WIDTH, HEIGHT = 1290, 650
-CARD_WIDTH, CARD_HEIGHT = 150,150
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Elements Unleashed')
-SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
-WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
-
 def init():
     import pygame
     import random
@@ -29,8 +20,8 @@ def init():
     SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
     WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
     run = True
-    card_deck = make_deck()
-    card_chosen = pygame.image.load(r"Assets_Elementsunleashed\button_transparent.png").convert_alpha()
+    card_deck = make_deck(CARD_WIDTH, CARD_HEIGHT)
+    card_chosen = pygame.image.load(r"button_transparent.png").convert_alpha()
 
 
 class Card:
@@ -38,7 +29,7 @@ class Card:
         self.name = name
         self.img = image
 
-def make_deck():
+def make_deck(CARD_WIDTH,CARD_HEIGHT):
     deck = []
     for _ in range(5):
         card_name = random.choice(['snow','fire','water'])
@@ -48,14 +39,13 @@ def make_deck():
     return deck
 
 def create_buttons():
-    button_img = pygame.image.load(r"Assets_Elementsunleashed\button_transparent.png").convert_alpha()
+    button_img = pygame.image.load(r"button_transparent.png").convert_alpha()
     buttons = list()
     for i in range(5):
         buttons.append(button.Button(150+200*i,485, button_img,1))
     return buttons
 
-def who_won(a,b):
-    global USER_WINS,CPU_WINS
+def who_won(a,b, SCORE_FONT, WIN, WIDTH, USER_WINS, CPU_WINS):
     if a.name == b.name:
         winner = SCORE_FONT.render("Draw",1,(255,255,255))
         WIN.blit(winner, (WIDTH//2-90,100))
@@ -73,9 +63,8 @@ def who_won(a,b):
         pygame.display.update()
         pygame.time.delay(1000)
         CPU_WINS += 1
+    return(USER_WINS,CPU_WINS)
 run = True
-card_deck = make_deck()
-card_chosen = pygame.image.load(r"Assets_Elementsunleashed\button_transparent.png").convert_alpha()
 def elementsunleashed(): 
     init()   
     USER_WINS = 0
@@ -87,8 +76,8 @@ def elementsunleashed():
     SCORE_FONT = pygame.font.SysFont('arcadeclassic', 40)
     WIN_FONT = pygame.font.SysFont('arcadeclassic', 100)
     run = True
-    card_deck = make_deck()
-    card_chosen = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
+    card_deck = make_deck(CARD_WIDTH,CARD_HEIGHT)
+    card_chosen = pygame.image.load(r"button_transparent.png").convert_alpha()
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -108,7 +97,7 @@ def elementsunleashed():
             if buttons[i].draw(WIN):
                 card_chosen = card_deck[i].img
                 user_card = card_deck[i]
-                #card_deck[i].img = pygame.image.load(r"C:\Users\Dell\Desktop\bonusprojectip\Assets_Elementsunleashed\button_transparent.png").convert_alpha()
+                card_deck[i].img = pygame.image.load(r"button_transparent.png").convert_alpha()
                 card_deck[i].img = 0
                 card_chosen = pygame.transform.scale(card_chosen,(200,200))
                 WIN.blit(card_chosen,(250,100))
@@ -119,7 +108,7 @@ def elementsunleashed():
                 cpu_card = Card(card_name,card)
                 WIN.blit(cpu_card.img, (750,100))
                 pygame.display.update()
-                who_won(cpu_card,user_card)
+                USER_WINS, CPU_WINS = who_won(cpu_card,user_card, SCORE_FONT, WIN, WIDTH, USER_WINS, CPU_WINS)
                 pygame.display.update()
                 pygame.time.delay(2000)
                 if USER_WINS == 3:
