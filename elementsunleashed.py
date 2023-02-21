@@ -110,19 +110,20 @@ def elementsunleashed():
                 pygame.display.update()
                 USER_WINS, CPU_WINS = who_won(cpu_card,user_card, SCORE_FONT, WIN, WIDTH, USER_WINS, CPU_WINS)
                 pygame.display.update()
-                pygame.time.delay(2000)
                 if USER_WINS == 3:
                     winner = WIN_FONT.render("YOU WON!",1,(255,255,255))
                     WIN.blit(winner, (WIDTH//2-170,300))
                     pygame.display.update()
                     pygame.time.delay(1000)
-                    pygame.quit()
+                    CPU_WINS = 0
+                    USER_WINS = 0
                 elif CPU_WINS == 3:
                     winner = WIN_FONT.render("YOU LOST",1,(255,255,255))
                     WIN.blit(winner, (WIDTH//2-170,300))
                     pygame.display.update()
                     pygame.time.delay(1000)
-                    pygame.quit()
+                    CPU_WINS = 0
+                    USER_WINS = 0
                 break
         for i in range(5):
             if card_deck[i].img == 0:
