@@ -7,13 +7,13 @@
 # Game
 There are 3 mini games - DareDive, Elements Unleashed, Galactic Shooter and a discord bot WhimsyBot
 # Functionality
-DareDive (inspired by the Club Penguin game Waverider) - [@surat-ss](https://www.github.com/surat-ss)
+DareDive (inspired by the Club Penguin game Waverider) - [@surat-ss](https://www.github.com/kio42069)
 
-ELements Unleashed (inspired by the Club Penguin game Card Jitsu) - [@surat-ss](https://www.github.com/surat-ss)
+ELements Unleashed (inspired by the Club Penguin game Card Jitsu) - [@surat-ss](https://www.github.com/kio42069)
 
 Galactic Shooter (more levels coming soon) - [@riyasach189](https://www.github.com/riyasach189)
 
-WhimsyBot - [@surat-ss](https://www.github.com/surat-ss)
+WhimsyBot - [@surat-ss](https://www.github.com/kio42069)
 
 Graphics (tkinter) - [@ded-avishi](https://www.github.com/ded-avishi)
 # Instructions
